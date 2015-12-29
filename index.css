@@ -114,15 +114,11 @@ body {
  */
 
 .cover {
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.87);
+  background-color: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
+  padding-left: 48px;
+  padding-right: 48px;
 }
-.cover .btn-lg {
-  padding: 10px 20px;
-  font-weight: bold;
-}
-
 .cover-heading {
   margin-bottom: 40px;
 }
