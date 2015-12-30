@@ -27,7 +27,7 @@
             <h1 class="cover-heading">Find your new home.</h1>
             <div id="custom-search-input">
                 <div class="input-group col-md-12">
-                    <input type="text" class="form-control input-lg" placeholder="Enter an address, city, or zipcode." />
+                    <input id="searchbar" type="text" class="form-control input-lg" placeholder="Enter an address, city, or zipcode." />
                     <span class="input-group-btn">
                         <button class="btn btn-info btn-lg" type="button" id="searchbutton">
                             <i class="glyphicon glyphicon-search"></i>
@@ -47,11 +47,28 @@
     </div>
 
     <script>
-     function pageOnload() {
-      $("#searchbutton").on('click', function(event) {
-        location.href = "http://www.redfin.com";
-      });
-     }
+      function pageOnload() {
+        $("#searchbutton").on('click', function(event) {
+          location.href = processSearchText(getSearchText());
+        });
+      }
+
+      function getSearchText() { return document.getElementById("searchbar").value; }
+
+      function processSearchText(text) {
+        if (text === "") {
+          return "";
+        }
+        if (!isNaN(text)) {
+          if  (text.length == 5) {
+            return "http://www.redfin.com/zipcode/" + text + "/real-estate";
+          }
+          return "";
+        }
+        //addressMatcher = new RegExp("^[0-9]+[A-z| ]+((apt|\#)+[ ]?[0-9]+)?$");
+        //match = adressMatcher.exec(text);
+        return "http://www.zillow.com/homes/" + text.replace(/ /g, "-") + "_rb/";
+      }
     </script>
 
     <!-- Bootstrap core JavaScript
