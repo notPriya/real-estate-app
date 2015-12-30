@@ -5,7 +5,7 @@
 	<link href="index.css" rel="stylesheet" type="text/css">
 	<style type="text/css"></style>
 </head>
-  <body>
+  <body onload="pageOnload()">
 
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
@@ -29,7 +29,7 @@
                 <div class="input-group col-md-12">
                     <input type="text" class="form-control input-lg" placeholder="Enter an address, city, or zipcode." />
                     <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" type="button">
+                        <button class="btn btn-info btn-lg" type="button" id="searchbutton">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </span>
@@ -45,6 +45,14 @@
         </div>
       </div>
     </div>
+
+    <script>
+     function pageOnload() {
+      $("#searchbutton").on('click', function(event) {
+        location.href = "http://www.redfin.com";
+      });
+     }
+    </script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
