@@ -2,19 +2,11 @@
  * Globals
  */
 
-/* Links */
-a,
-a:focus,
-a:hover {
-  color: #fff;
-}
-
 /* Custom default button */
 .btn-default,
 .btn-default:hover,
 .btn-default:focus {
   color: #333;
-  text-shadow: none; /* Prevent inheritence from `body` */
   background-color: #fff;
   border: 1px solid #fff;
 }
@@ -32,7 +24,6 @@ body {
 body {
   color: #fff;
   text-align: center;
-  text-shadow: 0 1px 3px rgba(0,0,0,.5);
 
   background: url(http://www.zillowstatic.com/static-homepage/51aa33f/static-homepage/images/backgrounds/Buy_Hero_117895303_1024x500_2x.jpg);
   background-attachment: fixed;
@@ -68,6 +59,10 @@ body {
 /*
  * Header
  */
+.masthead {
+  background: #000;
+}
+
 .masthead-brand {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -118,6 +113,7 @@ body {
   border-radius: 10px;
   padding-left: 48px;
   padding-right: 48px;
+  margin: 10px auto;
 }
 .cover-heading {
   margin-bottom: 40px;
@@ -148,7 +144,7 @@ body {
     border-left: solid 1px #ccc;
 }
 
-#custom-search-input button:hover{
+#custom-search-input button:hover {
     border: 0;
     box-shadow: none;
     border-left: solid 1px #ccc;
@@ -159,10 +155,27 @@ body {
 }
 
 /*
+ * Tabbed frames
+ */
+#website {
+  background: #fff;
+  margin: 25px 0px;
+  height: 250px;
+}
+
+iframe {
+  margin-top: 10px;
+  width: 100%;
+  border: none;
+  height: 180px;
+}
+
+/*
  * Footer
  */
 
 .mastfoot {
+  background: #000;
   color: #999; /* IE8 proofing */
   color: rgba(255,255,255,.5);
 }
@@ -172,22 +185,31 @@ body {
  * Affix and center
  */
 
-@media (min-width: 768px) {
-  /* Pull out the header and footer */
+@media (min-height: 400px) {
+   /* Pull out the header and footer */
   .masthead {
     position: fixed;
     top: 0;
-    background: #000;
   }
   .mastfoot {
     position: fixed;
     bottom: 0;
-    background: #000;
   }
   /* Start the vertical centering */
   .site-wrapper-inner {
     vertical-align: middle;
   }
+  /* Resize body to veiwport size */
+  #website {
+    margin: 55px 0px;
+    height: calc(100vh - 150px);
+  }
+  iframe {
+    height: calc(100% - 50px);
+  }
+}
+
+@media (min-width: 768px) {
   /* Handle the widths */
   .masthead,
   .mastfoot,
@@ -196,13 +218,11 @@ body {
   }
   .cover {
     width: 700px;
-    margin: auto;
   }
 }
 
 @media (min-width: 992px) {
   .cover {
     width: 800px;
-    margin: auto;
   }
 }
