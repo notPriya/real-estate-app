@@ -39,17 +39,19 @@
 
           <div class="container">
             <div class="inner" id="website">
-              <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li role="presentation" class="active">
-                  <a data-toggle="tab" href="#redfin" role="tab">Redfin</a>
-                </li>
-                <li role="presentation">
-                  <a data-toggle="tab" href="#zillow" role="tab">Zillow</a>
-                </li>
-                <li role="presentation">
-                  <a data-toggle="tab" href="#trulia" role="tab">Trulia</a>
-                </li>
-              </ul>
+              <nav>
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                  <li role="presentation" class="active">
+                    <a data-toggle="tab" href="#redfin" role="tab">Redfin</a>
+                  </li>
+                  <li role="presentation">
+                    <a data-toggle="tab" href="#zillow" role="tab">Zillow</a>
+                  </li>
+                  <li role="presentation">
+                    <a data-toggle="tab" href="#trulia" role="tab">Trulia</a>
+                  </li>
+                </ul>
+              </nav>
               <div class="tab-content">
                 <iframe id="redfin" class="tab-pane fade in active" role="tabpanel"></iframe>
                 <iframe id="zillow" class="tab-pane fade" role="tabpanel"></iframe>
@@ -72,20 +74,15 @@
       function pageOnload() {
         $("#website").css("display", "none");
         $("#searchbutton").click(function() {
-          $("#redfin").attr("src", processSearchText("08820"));
-          $("#zillow").attr("src", "http://www.google.com&output=embed");
-          $("#trulia").attr("src", "http://www.google.com&output=embed");
-          $("#website").css("display", "");
-          $("#homesearch").css("display", "none");
+          if (processSearchText(getSearchText())) {
+            $("#website").css("display", "");
+            $("#homesearch").css("display", "none");
+          }
         });
         $("#searchbar").keypress(function(event) {
           if (event.which === 13) {
             $("#searchbutton").click();
           }
-        });
-        $('#website a').click(function (e) {
-          e.preventDefault()
-          $(this).tab('show')
         });
       }
 
@@ -98,17 +95,28 @@
 
       function processSearchText(text) {
         if (text === "") {
-          return "";
+          return false;
         }
         if (!isNaN(text)) {
-          if  (text.length == 5) {
-            return "http://www.redfin.com/zipcode/" + text + "/real-estate";
+          if  (text.length !== 5) {
+            return false;
           }
-          return "";
+          $("#redfin").attr(
+              "src",
+              "http://www.redfin.com/zipcode/" + text + "/real-estate");
+          $("#zillow").attr(
+              "src", "http://www.zillow.com/homes/" + text + "_rb/");
+          $("#trulia").attr(
+              "src", "http://www.trulia.com/for_sale/" + text + "_zip/");
+          return true;
         }
         //addressMatcher = new RegExp("^[0-9]+[A-z| ]+((apt|\#)+[ ]?[0-9]+)?$");
         //match = adressMatcher.exec(text);
-        return "http://www.zillow.com/homes/" + text.replace(/ /g, "-") + "_rb/";
+        $("#redfin").attr("src", "http://www.google.com/&output=embed");
+        $("#zillow").attr("src",
+            "http://www.zillow.com/homes/" + text.replace(/ /g, "-") + "_rb/");
+        $("#trulia").attr("src", "http://www.google.com/&output=embed");
+        return true;
       }
     </script>
 
